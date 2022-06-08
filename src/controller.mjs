@@ -1,6 +1,8 @@
 export default class Controller {
-    constructor({ view }) {
+    constructor({ view, media, recorder }) {
         this.view = view;
+        this.media = media;
+        this.recorder = recorder;
     }
 
     static initialize(dependecies) {
@@ -14,6 +16,7 @@ export default class Controller {
     }
 
     async onStartRecording() {
-        console.log("Iniciou a gravação")
+        const audioStream = await this.media.getAudio();
+        this.recorder.startRecording(audioStream);
     }
 }
