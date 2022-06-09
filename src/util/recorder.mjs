@@ -44,4 +44,9 @@ export default class Recorder {
         this.mediaRecorder.stop()
         console.log('media recorded stopped')
     }
+
+    getRecordingUrl() {
+        const blob = new Blob(this.recorderBlobs, { type: this.audioType });
+        return window.URL.createObjectURL(blob);
+    }
 }

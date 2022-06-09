@@ -12,11 +12,20 @@ export default class Controller {
     }
 
     _init() {
-        this.view.configureStartRecordButton(this.onStartRecording.bind(this))
+        this.view.configureStartRecordingButton(this.onStartRecording.bind(this))
+        this.view.configureStopRecordingButton(this.onStopRecording.bind(this))
     }
 
     async onStartRecording() {
         const audioStream = await this.media.getAudio();
         this.recorder.startRecording(audioStream);
+    }
+
+    async onStopRecording() {
+        this.recorder.stopRecording();
+        setTimeout(() => {
+            const audioURL = this.recorder.getRecordingURL()
+            this.view.playAudio(audioURL)
+        })
     }
 }
